@@ -7,10 +7,13 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.miikka.booking.model.User;
 import com.miikka.booking.service.UserService;
 
 @Configuration
@@ -36,27 +39,23 @@ public class SecurityConfig {
 		auth.authenticationProvider(authenticationProvider());
 	}
 	
+	// Just a basic authentication setup for now, will improve later...
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			.authorizeHttpRequests().antMatchers("/customers**", "/bills**",
-					"/registration**", "/js/**", "/css/**", "/img/**")
-			.permitAll().anyRequest().authenticated()
-			.and()
-			.formLogin()
+		.authorizeHttpRequests((requests) -> requests
+			.antMatchers("/").permitAll()
+			.anyRequest().authenticated()
+		)
+		.formLogin((form) -> form
 			.loginPage("/login")
 			.permitAll()
-			.and()
-			.logout()
-			.invalidateHttpSession(true)
-			.clearAuthentication(true)
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/login?logout")
-			.permitAll();
-		
-		
-		return http.build();
+		)
+		.logout((logout) -> logout.permitAll());
+
+	return http.build();
 		
 	}
+	
 	
 }

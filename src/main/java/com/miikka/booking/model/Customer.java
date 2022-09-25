@@ -1,7 +1,9 @@
 package com.miikka.booking.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "customer")
@@ -29,15 +33,21 @@ public class Customer {
 		
 		private String email;
 	    
-		@OneToMany(mappedBy="customer")
-		private List<Bill> bills;
+		@OneToMany(mappedBy="customer", cascade = {CascadeType.REMOVE})
+		@JsonManagedReference
+		private List<Invoice> invoices;
 		
 	    public Customer() {
-	    	
+	    	invoices = new ArrayList<Invoice>();
+	    }
+	    
+	    @Override
+	    public String toString() {
+	    	return first_name + " " + last_name;
 	    }
 		
 		public Customer(long id, String first_name, String last_name, String address, int zip_code, String email,
-				List<Bill> bills) {
+				List<Invoice> invoices) {
 			super();
 			this.id = id;
 			this.first_name = first_name;
@@ -95,16 +105,20 @@ public class Customer {
 			this.email = email;
 		}
 
-		public List<Bill> getBills() {
-			return bills;
-		}
-
-		public void setBills(List<Bill> bills) {
-			this.bills = bills;
-		}
-
 		public void setZip_code(int zip_code) {
 			this.zip_code = zip_code;
+		}
+		
+		public List<Invoice> getInvoices(){
+			return invoices;
+		}
+		
+		public void setInvoices(List<Invoice> invoices) {
+			this.invoices = invoices;
+		}
+		
+		public void addInvoice(Invoice invoice) {
+			invoices.add(invoice);
 		}
 		
 	}

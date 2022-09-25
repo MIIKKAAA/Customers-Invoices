@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bill")
-public class Bill {
+@Table(name = "invoice")
+public class Invoice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +27,15 @@ public class Bill {
 	private double amount;
 	private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 	
-	public Bill() {
+	public Invoice() {
 		
 	}
 	
-	public Bill(Long id, String receiver, String bank_id, String acc_num, String due_date, int ref_num, String msg,
+	public Invoice(Long id, String receiver, String bank_id, String acc_num, String due_date, int ref_num, String msg,
 			double amount, String status, Customer customer) {
 		super();
 		this.id = id;

@@ -2,29 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Add a bill</title>
+<title>Add a invoice</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 </head>
 <body>
-	<h1>Not impelemented yet, check back later</h1>
-	<!--  <div class="container">
-		<h2>Add a bill</h2>
+	<div class="container">
+		<h2>Add a invoice</h2>
 		
-		<form action="#" th:action="@{/bills/{customerId}/saveBill}" th:object = "${bill}" method="POST">
+		<form action="#" th:action="@{/invoices/newInvoice}" th:object = "${invoice}" method="POST"> 
 			<input type="text" th:field ="*{receiver}" placeholder="Receiver" class="form-control mb-4 col-4">
 			<input type="text" th:field ="*{bank_id}" placeholder="Bank ID" class="form-control mb-4 col-4">
 			<input type="text" th:field ="*{acc_num}" placeholder="Account Number" class="form-control mb-4 col-4">
 			<input type="text" th:field ="*{due_date}" placeholder="Due Date" class="form-control mb-4 col-4">
-			<input type="text" th:field ="*{ref_num}" placeholder="Reference number" class="form-control mb-4 col-4">
+			<input type="number" th:field ="*{ref_num}" placeholder="Reference number" class="form-control mb-4 col-4">
 			<input type="text" th:field ="*{msg}" placeholder="Message" class="form-control mb-4 col-4">
-			<input type="text" th:field ="*{amount}" placeholder="Amount" class="form-control mb-4 col-4">
-			<input type="text" th:field ="*{status}" placeholder="Status" class="form-control mb-4 col-4">
+			<input type="number" th:field ="*{amount}" placeholder="Amount" class="form-control mb-4 col-4">
 			
-			<button type="submit" class="btn btn-info col-2">Save bill</button>
+			<div class="form-group">
+		  	<label for="sel1">Status:</label>
+		 	 	<select th:field = "*{status}" class="form-control" id="sel1">
+			    	<option th:value="Active">Active</option>
+			    	<option th:value="Paid">Paid</option>
+			    	<option th:value="Expired">Expired</option>
+	  			</select>
+			</div>
+			<button type="submit" class="btn btn-info col-2">Save invoice</button>
 		</form>
-	</div>-->
+	</div>
 	<a th:href = "@{/customers}">Back</a>
 
 </body>
