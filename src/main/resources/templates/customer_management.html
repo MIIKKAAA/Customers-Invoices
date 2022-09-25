@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<title>Customer</title>
+</head>
+<body>
+
+	<nav class="navbar navbar-default">
+ 		 <div class="container-fluid">
+    		<div class="navbar-header">
+      			<a class="navbar-brand" href="#">Site name here</a>
+    		</div>
+    		<ul class="nav navbar-nav">
+      			<li class="active"><a th:href="@{/}">Home</a>
+      			<li><a th:href="@{/customers}">Customers</a></li>
+    		</ul>
+  			</div>
+	</nav>
+
+	<div align="center">
+	<a th:href = "@{/customers/newCustomerForm}">Add a new customer</a>
+	<a th:href = "@{/registration}">Register</a>
+		<h1>Customers</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th> Customer First name</th>
+					<th> Customer Last name</th>
+					<th> Customer Address</th>
+					<th> Customer Zip Code</th>
+					<th> Customer email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="customer : ${listCustomers}">
+					<td th:text="${customer.first_name}"></td>
+					<td th:text="${customer.last_name}"></td>
+					<td th:text="${customer.address}"></td>
+					<td th:text="${customer.zip_code}"></td>
+					<td th:text="${customer.email}"></td>
+					<td> <a th:href="@{/customers/showUpdateForm/{id}(id=${customer.id})}" class="btn">Update</a></td>
+					<td> <a th:href="@{/customers/deleteCustomer/{id}(id=${customer.id})}" class="btn">Delete</a></td>
+					<td> <a th:href="@{/bills/{id}(id=${customer.id})}" class="btn">View bills</a></td>
+					
+			</tbody>
+		</table>
+	
+	</div>
+
+</body>
+</html>

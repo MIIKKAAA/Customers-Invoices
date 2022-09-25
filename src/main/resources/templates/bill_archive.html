@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Customer's bill archive</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body>
+
+	<nav class="navbar navbar-default">
+ 		 <div class="container-fluid">
+    		<div class="navbar-header">
+      			<a class="navbar-brand" href="#">Site name here</a>
+    		</div>
+    		<ul class="nav navbar-nav">
+      			<li class="active"><a th:href="@{/}">Home</a>
+      			<li><a th:href="@{/customers}">Customers</a></li>
+    		</ul>
+  			</div>
+	</nav>
+	
+	<h1>Bills</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th> Receiver name </th>
+				<th> Bank id </th>
+				<th> Account number </th>
+				<th> Due date </th>
+				<th> Reference number </th>
+				<th> Message </th>
+				<th> Bank id </th>
+				<th> Amount </th>
+				<th> Status </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="bill : ${bills}">
+				<td th:text="${bill.receiver}"></td>
+				<td th:text="${bill.bank_id}"></td>
+				<td th:text="${bill.acc_num}"></td>
+				<td th:text="${bill.due_date}"></td>
+				<td th:text="${bill.ref_num}"></td>
+				<td th:text="${bill.msg}"></td>
+				<td th:text="${bill.amount}"></td>
+				<td th:text="${bill.status}"></td>
+				<td> <a th:href="@{/deleteBill/{id}(id=${bill.id})}" class="btn">Delete</a></td>
+				
+		</tbody>
+	</table>
+	<a th:href="@{/bills/newBill}">Add a new bill</a>
+	<br>
+	<a th:href = "@{/customers}">Back</a>
+	
+</body>
+</html>
